@@ -2,41 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Premium Study System Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Premium Background System */
+    --background: 220 25% 6%;
+    --background-secondary: 220 20% 8%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Glassmorphism Cards */
+    --glass: 220 25% 10%;
+    --glass-border: 220 15% 20%;
+    --glass-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Premium Gold Accent System */
+    --accent-gold: 45 95% 68%;
+    --accent-gold-muted: 45 85% 58%;
+    --accent-gold-foreground: 220 25% 6%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Interactive Elements */
+    --primary: 45 95% 68%;
+    --primary-hover: 45 100% 75%;
+    --primary-foreground: 220 25% 6%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 15% 15%;
+    --secondary-hover: 220 15% 20%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 25% 6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Subtle Elements */
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 60%;
+    --border: 220 15% 20%;
+    --input: 220 15% 12%;
+    --ring: 45 95% 68%;
 
-    --radius: 0.5rem;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220, 25%, 6%) 0%, hsl(220, 20%, 10%) 50%, hsl(45, 95%, 68%, 0.1) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220, 25%, 10%, 0.8) 0%, hsl(220, 15%, 15%, 0.6) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(45, 95%, 68%) 0%, hsl(45, 85%, 58%) 100%);
+    
+    /* Shadows */
+    --shadow-glass: 0 8px 32px hsl(220, 25%, 6%, 0.4);
+    --shadow-gold: 0 0 20px hsl(45, 95%, 68%, 0.3);
+    --shadow-elevated: 0 20px 40px hsl(220, 25%, 6%, 0.6);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +123,135 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-light;
+    background: var(--gradient-hero);
+    min-height: 100vh;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Card */
+  .glass-card {
+    background: var(--gradient-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+    transition: var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Premium Buttons */
+  .btn-premium {
+    background: var(--gradient-accent);
+    color: hsl(var(--primary-foreground));
+    border: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-gold), var(--shadow-elevated);
+  }
+
+  .btn-secondary {
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+
+  .btn-secondary:hover {
+    background: hsl(var(--secondary-hover));
+    transform: translateY(-1px);
+  }
+
+  /* Animated Progress */
+  .progress-glow {
+    box-shadow: 0 0 20px hsl(var(--primary));
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Smooth Animations */
+  .fade-in {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+  }
+
+  .bounce-in {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .backdrop-blur-glass {
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary));
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(var(--primary)), 0 0 30px hsl(var(--primary));
   }
 }
